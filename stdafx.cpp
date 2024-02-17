@@ -651,14 +651,14 @@ int calculateStateCost(const State& state)
 void checkForRepeats(std::vector<State>& nextStates, std::set<State>& openSet, std::vector<std::array<int, TILE_COUNT>>& visited)
 {
 	int nextStatesSz = nextStates.size(), visitedSz = visited.size(),
-		i, j, k, l;
+		i, j, k;
 	bool toBeAdded;
 	bool* isSame = new bool[visitedSz];
 
 	for (i = 0; i < nextStatesSz; i++)
 	{
-		for (l = 0; l < visitedSz; l++)
-			isSame[l] = true;
+		for (j = 0; j < visitedSz; j++)
+			isSame[j] = true;
 
 		toBeAdded = false;
 		for (j = 0; j < visitedSz; j++)
@@ -669,8 +669,8 @@ void checkForRepeats(std::vector<State>& nextStates, std::set<State>& openSet, s
 					break;
 				}
 
-		for (l = 0; l < visitedSz; l++)
-			if (isSame[l])
+		for (j = 0; j < visitedSz; j++)
+			if (isSame[j])
 			{
 				toBeAdded = false;
 				break;
