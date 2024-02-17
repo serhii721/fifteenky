@@ -78,7 +78,7 @@ void showTiles(HWND hwnd, HWND hB[], int m[])
 		ShowWindow(hB[i], SW_SHOW);
 		if (m[i] != 0)
 		{
-			if (romanFont)
+			if (!romanFont)
 				SetWindowText(hB[i], convertToRoman(m[i]).c_str());
 			else
 				SetWindowText(hB[i], std::to_string(m[i]).c_str());
