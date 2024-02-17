@@ -499,8 +499,8 @@ int calculateManhattanDistance(const State& current)
 		correctRow = (current.title[i] - 1) / 4;
 		correctCol = (current.title[i] - 1) % 4;
 
-		rowDifference = fabs(currentRow - correctRow);
-		colDifference = fabs(currentCol - correctCol);
+		rowDifference = (int)fabs(currentRow - correctRow);
+		colDifference = (int)fabs(currentCol - correctCol);
 
 		distance += rowDifference + colDifference;
 	}
@@ -650,29 +650,26 @@ int calculateStateCost(const State& state)
 
 void checkForRepeats(std::vector<State>& nextStates, std::set<State>& openSet, std::vector<std::array<int, TILE_COUNT>>& visited)
 {
+	int nextStatesSz = nextStates.size(), visitedSz = visited.size(),
+		i, j, k, l;
 	bool toBeAdded;
-	bool* isSame = new bool[visited.size()];
+	bool* isSame = new bool[visitedSz];
 
-	for (int i = 0; i < nextStates.size(); i++)
+	for (i = 0; i < nextStatesSz; i++)
 	{
-		for (int l = 0; l < visited.size(); l++)
+		for (l = 0; l < visitedSz; l++)
 			isSame[l] = true;
 
 		toBeAdded = false;
-		for (int j = 0; j < visited.size(); j++)
-		{
-			for (int k = 0; k < TILE_COUNT; k++)
-			{
+		for (j = 0; j < visitedSz; j++)
+			for (k = 0; k < TILE_COUNT; k++)
 				if (nextStates[i].title[k] != visited[j][k])
 				{
 					isSame[j] = false;
 					break;
 				}
-			}
-		}
 
-		for (int l = 0; l < visited.size(); l++)
-		{
+		for (l = 0; l < visitedSz; l++)
 			if (isSame[l])
 			{
 				toBeAdded = false;
@@ -680,7 +677,6 @@ void checkForRepeats(std::vector<State>& nextStates, std::set<State>& openSet, s
 			}
 			else
 				toBeAdded = true;
-		}
 
 		if (toBeAdded)
 			openSet.insert(nextStates[i]);
@@ -705,7 +701,7 @@ void solvePuzzle(HWND hwnd, HWND hB[], const State& startState, std::vector<Stat
 	openSet.insert(startState);
 
 	// Variables for additional info for debug purposes
-	int minCost = 1000, maxCost = 0, cost, costH;
+	int minCost = 1000, maxCost = 0;
 
 	while (!openSet.empty())
 	{
@@ -728,19 +724,8 @@ void solvePuzzle(HWND hwnd, HWND hB[], const State& startState, std::vector<Stat
 			}
 			return;
 		}
-		
-		// Additional information for debug
 
-		/*showTiles(hwnd, hB, current.title);
-		cost = calculateManhattanDistance(current);
-		costH = calculateHeuristic(current);
-		minCost = minCost < cost ? minCost : cost;
-		maxCost = maxCost > cost ? maxCost : cost;
-		sprintf(str, "o %d, v %d, n %d, lvl %d, < %d, > %d, = %d, t %d, h %d",
-			openSet.size(), visited.size(), nextStates.size(), current.level, minCost, maxCost, cost, current.cost, costH);
-		SetWindowText(hwnd, str);*/
-
-		sprintf(str, "Calculating. Currently evaluated %d positions", visited.size());
+		sprintf_s(str, "Calculating. Currently evaluated %d positions", visited.size());
 		SetWindowText(hwnd, str);
 
 		// Calculate all possible next moves from current position
@@ -799,7 +784,7 @@ LRESULT CALLBACK WFunc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case WM_CREATE:
-		srand(time(0));
+		srand((unsigned)time(0));
 
 		// Creating tiles
 		for (i = 0; i < TILE_COUNT; i++)
@@ -841,7 +826,7 @@ LRESULT CALLBACK WFunc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				executeMove(startState, solutionPath[i]);
 				showTiles(hwnd, hBut, startState.title);
-				sprintf(str, "Puzzle solved! Executing move %d / %d", solutionPath[i].level + 1, solutionPath[0].level);
+				sprintf_s(str, "Puzzle solved! Executing move %d / %d", solutionPath[i].level + 1, solutionPath[0].level);
 				SetWindowText(hwnd, str);
 				Sleep(delayTime);
 			}
