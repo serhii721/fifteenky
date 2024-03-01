@@ -10,7 +10,7 @@ HINSTANCE hInst;
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE , LPSTR lpCmdLine, int nCmdShow)
 {
 	hInst = hInstance;
-	// 1. Создание внешнего вида окна.
+	// 1. Creating window's appearances
 	WNDCLASS win;
 	win.style = CS_HREDRAW | CS_VREDRAW;
 	win.lpfnWndProc = WFunc;
@@ -22,20 +22,20 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE , LPSTR lpCmdLine, int nCmdS
 	win.lpszMenuName = MAKEINTRESOURCE(IDR_MENU1);
 	win.lpszClassName = name;
 
-	// 2. Регистрация окна в операционной системе.
+	// 2. Registering window in OS
 	if (!RegisterClass(&win))
 	{
 		MessageBox(NULL, "Окно не зарегистрировано", "Ошибка", MB_OK);
 		return -1;
 	}
 
-	// 3. Создание окна.
+	// 3. Creating window
 	HWND hwnd;
 	hwnd = CreateWindow(name, "Fifteenky",
 						WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX | WS_VISIBLE,
 						50, 105, 500, 500, HWND_DESKTOP, NULL, hInstance, NULL);
 
-	// 4. Создание насоса сообщений.
+	// 4. Creating messages pump
 	MSG msg;
 	while (GetMessage(&msg, NULL, 0, 0))
 	{

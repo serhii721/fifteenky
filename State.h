@@ -1,5 +1,6 @@
 #pragma once
-struct State {
+struct State
+{
 	// State holds information about previous state so that sequence of the moves can be traced
 	State* previousState;
 
@@ -18,7 +19,8 @@ struct State {
 	State();
 
 	// Overloading the operator for future priority queue
-	bool operator<(const State& other) const {
+	bool operator<(const State& other) const
+	{
 		return cost < other.cost;
 	}
 };

@@ -56,7 +56,7 @@ void executeMove(State&, const State&);
 
 LRESULT CALLBACK WFunc(HWND, UINT, WPARAM, LPARAM);
 
-// Αστεπ.
+// Buffer.
 TCHAR str[256] = "";
 
 //{{AFX_INSERT_LOCATION}}
