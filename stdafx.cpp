@@ -29,6 +29,43 @@ string convertToRoman(int n)
 	}
 }
 
+bool isCompletedPuzzle(State* state)
+{
+	if (state->GetTitle(0) != 1)
+		return false;
+	if (state->GetTitle(1) != 2)
+		return false;
+	if (state->GetTitle(2) != 3)
+		return false;
+	if (state->GetTitle(3) != 4)
+		return false;
+	if (state->GetTitle(4) != 5)
+		return false;
+	if (state->GetTitle(5) != 6)
+		return false;
+	if (state->GetTitle(7) != 8)
+		return false;
+	if (state->GetTitle(7) != 8)
+		return false;
+	if (state->GetTitle(8) != 9)
+		return false;
+	if (state->GetTitle(9) != 10)
+		return false;
+	if (state->GetTitle(10) != 11)
+		return false;
+	if (state->GetTitle(11) != 12)
+		return false;
+	if (state->GetTitle(12) != 13)
+		return false;
+	if (state->GetTitle(13) != 14)
+		return false;
+	if (state->GetTitle(14) != 15)
+		return false;
+	if (state->GetTitle(15) != 0)
+		return false;
+	return true;
+}
+
 LRESULT CALLBACK WFunc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	static HWND hBut[16];
@@ -54,11 +91,11 @@ LRESULT CALLBACK WFunc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		CLIP_DEFAULT_PRECIS,	// Clip precission
 		DEFAULT_QUALITY,		// Output quality
 		DEFAULT_PITCH |			// Pitch
-		FF_ROMAN,			// Font family
+		FF_ROMAN,				// Font family
 		"MyFont"				// Name
 	);
 	static int sx, sy;
-	int i, n;
+	int i;
 
 	switch (message)
 	{
@@ -141,19 +178,33 @@ LRESULT CALLBACK WFunc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		for (i = 0; i < TILE_COUNT; i++)
 			if ((HWND)lParam == hBut[i])
 				break;
-		n = i;
 
 		// Saving the number of the selected button into the buffer
-		SendMessage(hBut[n], WM_GETTEXT, 3, (LPARAM)(TCHAR*)str);
+		SendMessage(hBut[i], WM_GETTEXT, 3, (LPARAM)(TCHAR*)str);
 
 		// Moving pieces
-		// n - button position number
-		// mas[n] - button title number
-		if (currentState->IsMovementPossible(n))
-			currentState->MovePiece(n);
+		if (currentState->IsMovementPossible(i))
+			currentState->MovePiece(i);
 		// Update window after moving a piece
 		currentState->Show(hwnd, hBut, romanFont);
 
+		if (isCompletedPuzzle(currentState))
+		{
+			int msgboxID = MessageBoxA(
+				hwnd,
+				"Congratulations! You've completed the puzzle!\nDo you want to restart?",
+				"Victory",
+				MB_YESNOCANCEL  | MB_ICONQUESTION
+			);
+
+			if (msgboxID == IDYES)
+			{
+				currentState->FillTilesRandomly();
+				currentState->Show(hwnd, hBut, romanFont);
+			}
+			if (msgboxID == IDCANCEL)
+				DestroyWindow(hwnd);
+		}
 		break;
 
 	case WM_PAINT:

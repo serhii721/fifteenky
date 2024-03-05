@@ -28,6 +28,7 @@ const int TILE_COUNT = 16;
 #include "AStar.h"
 
 string convertToRoman(int);
+bool isCompletedPuzzle(State*);
 
 LRESULT CALLBACK WFunc(HWND, UINT, WPARAM, LPARAM);
 
