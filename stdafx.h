@@ -19,40 +19,15 @@
 #include <vector>
 #include <array>
 #include <set>
+using namespace std;
 
 #include "resource.h"
 
 const int TILE_COUNT = 16;
 #include "State.h"
+#include "AStar.h"
 
-int delayTime = 1000;
-bool romanFont = false, nightMode = true;
-
-std::string convertToRoman(int);
-void fillTiles(HWND, HWND[], int[]);
-void showTiles(HWND, HWND[], int[]);
-
-bool isMovementPossible(int[], int);
-int findEmptyTile(const int[]);
-void movePiece(int[], int);
-
-bool isMoveUpPossible(int);
-bool isMoveLeftPossible(int);
-bool isMoveRightPossible(int);
-bool isMoveDownPossible(int);
-void swapTop(int[], int);
-void swapLeft(int[], int);
-void swapRight(int[], int);
-void swapBottom(int[], int);
-
-State updateState(int[]);
-int calculateHeuristic(const State&);
-int calculateManhattanDistance(const State&);
-void calculateNextStates(const State&, std::vector<State>&);
-int calculateStateCost(const State&);
-void checkForRepeats(std::vector<State>&, std::set<State>&, std::vector<std::array<int, TILE_COUNT>>&);
-void solvePuzzle(HWND, HWND[], const State&, std::vector<State>&);
-void executeMove(State&, const State&);
+string convertToRoman(int);
 
 LRESULT CALLBACK WFunc(HWND, UINT, WPARAM, LPARAM);
 
