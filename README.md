@@ -1,9 +1,34 @@
-This is a classic Puzzle of 15. It is written as an educational project on C++ and WinAPI using OOP principles. Application's features are:
-- Manual assembly of Puzzle 15
-- Autoassembly of Puzzle 15 based on A* algorithm
-- Ability to choose the speed of autoassembly
-- Ability to generate new random solvable positions
-- Ability to choose between roman and arabic numerals
-- Ability to toggle nightmode
+# Fifteenky
 
-To run the application it is necessary to install Visual C++ 2017 Redistributable
+This is an implementation of a classic game Puzzle of 15 written in C++ and WinAPI using OOP principles.
+
+__Features:__
+
+- __Manual assembly__ of Puzzle 15.
+- __Autoassembly__ of Puzzle 15 based on __the A* algorithm__.
+- Ability to __generate random solvable positions__.
+- Victory condition and congratulatory message.
+
+_It is written as an educational project in C++ and WinAPI using OOP principles._
+
+## Installation
+
+Download and install [the latest release](https://github.com/serhii721/fifteenky/releases/tag/v1.0.0).
+
+## Prerequisites
+
+To run the application it is necessary to install [Microsoft Visual C++ 2017 Redistributable packages (x86)](https://aka.ms/vs/17/release/vc_redist.x86.exe).
+
+## Configuration
+
+In the settings, a user can:
+
+- Choose the speed of autoassembly.
+- Choose between roman and arabic numerals.
+- Toggle nightmode.
+
+## Development notes
+
+_Microsoft Visual Studio 2017 (15.9.59) is used for development._
+
+There is the `AStar` class that contains algorithm methods.
