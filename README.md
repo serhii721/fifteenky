@@ -27,6 +27,11 @@ In the settings, a user can:
 - Choose between roman and arabic numerals.
 - Toggle nightmode.
 
+## Screenshots
+
+![Night mode](https://raw.github.com/serhii721/fifteenky/screenshots/Screenshots/screen1.jpg "Night mode")
+![Roman font](https://raw.github.com/serhii721/fifteenky/screenshots/Screenshots/screen2.jpg "Roman font")
+
 ## Development notes
 
 _Microsoft Visual Studio 2017 (15.9.59) is used for development._
